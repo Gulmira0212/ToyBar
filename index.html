@@ -12,7 +12,7 @@
     body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
     .font-serif-display { font-family: 'Cormorant Garamond', serif; }
 
-    /* Суу белгиси (Watermark) */
+    /* Суу белгиси — баскычтарга тоскоол болбойт */
     .watermark-layer {
       position: absolute;
       inset: 0;
@@ -21,10 +21,10 @@
       overflow: hidden;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
-      padding: 20px;
+      gap: 20px;
+      padding: 18px;
       align-content: center;
-      background: rgba(0, 0, 0, 0.06);
+      background: rgba(0, 0, 0, 0.04);
     }
     .watermark-item {
       transform: rotate(-28deg);
@@ -32,16 +32,11 @@
       font-weight: 800;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.42);
-      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.65);
+      color: rgba(255, 255, 255, 0.45);
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
       text-align: center;
       user-select: none;
       -webkit-user-select: none;
-    }
-    .protected-card {
-      user-select: none;
-      -webkit-user-select: none;
-      -webkit-touch-callout: none;
     }
 
     /* Бай түстөр */
@@ -156,7 +151,7 @@
             <li>✓ Тойдон кийин +3 күн активдүү</li>
           </ul>
         </div>
-        <button type="button" onclick="selectPlan('photo', 190)" class="mt-6 w-full py-2.5 rounded-xl border border-stone-900 text-stone-900 hover:bg-stone-900 hover:text-white font-semibold text-xs sm:text-sm transition">
+        <button type="button" onclick="selectPlan('photo', 190, true)" class="mt-6 w-full py-2.5 rounded-xl border border-stone-900 text-stone-900 hover:bg-stone-900 hover:text-white font-semibold text-xs sm:text-sm transition cursor-pointer">
           190 сомдукту тандоо
         </button>
       </div>
@@ -173,7 +168,7 @@
             <li>✓ Музыка кошуу / өчүрүү</li>
           </ul>
         </div>
-        <button type="button" onclick="selectPlan('standard', 490)" class="mt-6 w-full py-2.5 rounded-xl bg-emerald-900 hover:bg-emerald-800 text-amber-200 font-semibold text-xs sm:text-sm transition">
+        <button type="button" onclick="selectPlan('standard', 490, true)" class="mt-6 w-full py-2.5 rounded-xl bg-emerald-900 hover:bg-emerald-800 text-amber-200 font-semibold text-xs sm:text-sm transition cursor-pointer">
           490 сомдукту тандоо
         </button>
       </div>
@@ -190,7 +185,7 @@
             <li>✓ Толук мүмкүнчүлүктөр топтому</li>
           </ul>
         </div>
-        <button type="button" onclick="selectPlan('vip', 990)" class="mt-6 w-full py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-stone-950 font-bold text-xs sm:text-sm transition">
+        <button type="button" onclick="selectPlan('vip', 990, true)" class="mt-6 w-full py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-stone-950 font-bold text-xs sm:text-sm transition cursor-pointer">
           990 сомдукту тандоо
         </button>
       </div>
@@ -211,15 +206,15 @@
 
         <!-- Чакыруунун тили -->
         <div>
-          <label class="block text-xs sm:text-sm font-bold text-stone-800 mb-2">1. Чакыруунун тили (Язык приглашения / Taklifnoma tili)</label>
+          <label class="block text-xs sm:text-sm font-bold text-stone-800 mb-2">1. Чакыруунун тили</label>
           <div class="grid grid-cols-3 gap-2">
-            <button type="button" onclick="setInviteLang('ky')" id="lang-btn-ky" class="lang-btn border-2 border-emerald-800 bg-emerald-50 text-emerald-950 py-2.5 px-2 rounded-xl text-xs font-bold">
+            <button type="button" onclick="setInviteLang('ky')" id="lang-btn-ky" class="lang-btn border-2 border-emerald-800 bg-emerald-50 text-emerald-950 py-2.5 px-2 rounded-xl text-xs font-bold cursor-pointer">
               🇰🇬 Кыргызча
             </button>
-            <button type="button" onclick="setInviteLang('ru')" id="lang-btn-ru" class="lang-btn border border-stone-200 bg-white text-stone-800 py-2.5 px-2 rounded-xl text-xs font-bold">
+            <button type="button" onclick="setInviteLang('ru')" id="lang-btn-ru" class="lang-btn border border-stone-200 bg-white text-stone-800 py-2.5 px-2 rounded-xl text-xs font-bold cursor-pointer">
               🇷🇺 Русский
             </button>
-            <button type="button" onclick="setInviteLang('uz')" id="lang-btn-uz" class="lang-btn border border-stone-200 bg-white text-stone-800 py-2.5 px-2 rounded-xl text-xs font-bold">
+            <button type="button" onclick="setInviteLang('uz')" id="lang-btn-uz" class="lang-btn border border-stone-200 bg-white text-stone-800 py-2.5 px-2 rounded-xl text-xs font-bold cursor-pointer">
               🇺🇿 O'zbekcha
             </button>
           </div>
@@ -229,13 +224,13 @@
         <div>
           <label class="block text-xs sm:text-sm font-bold text-stone-800 mb-2">2. Вариантты / Бааны тандаңыз</label>
           <div class="grid grid-cols-3 gap-2">
-            <button type="button" onclick="selectPlan('photo', 190, false)" id="plan-btn-photo" class="plan-btn border border-stone-200 bg-white text-stone-800 py-2.5 px-2 rounded-xl text-xs font-bold">
+            <button type="button" onclick="selectPlan('photo', 190, false)" id="plan-btn-photo" class="plan-btn border border-stone-200 bg-white text-stone-800 py-2.5 px-2 rounded-xl text-xs font-bold cursor-pointer">
               📷 Фото — 190с
             </button>
-            <button type="button" onclick="selectPlan('standard', 490, false)" id="plan-btn-standard" class="plan-btn border-2 border-emerald-800 bg-emerald-50 text-emerald-950 py-2.5 px-2 rounded-xl text-xs font-bold">
+            <button type="button" onclick="selectPlan('standard', 490, false)" id="plan-btn-standard" class="plan-btn border-2 border-emerald-800 bg-emerald-50 text-emerald-950 py-2.5 px-2 rounded-xl text-xs font-bold cursor-pointer">
               ✨ Стандарт — 490с
             </button>
-            <button type="button" onclick="selectPlan('vip', 990, false)" id="plan-btn-vip" class="plan-btn border border-stone-200 bg-white text-stone-800 py-2.5 px-2 rounded-xl text-xs font-bold">
+            <button type="button" onclick="selectPlan('vip', 990, false)" id="plan-btn-vip" class="plan-btn border border-stone-200 bg-white text-stone-800 py-2.5 px-2 rounded-xl text-xs font-bold cursor-pointer">
               🎬 Видео VIP — 990с
             </button>
           </div>
@@ -245,10 +240,10 @@
         <div>
           <label class="block text-xs sm:text-sm font-bold text-stone-800 mb-2">3. Шаблондун түрү</label>
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-            <button type="button" onclick="setTemplate('wedding')" id="tpl-wedding" class="tpl-btn border-2 border-emerald-800 bg-emerald-50 text-emerald-950 py-2 px-2.5 rounded-xl text-xs font-semibold">💍 Үйлөнүү той</button>
-            <button type="button" onclick="setTemplate('uzatuu')" id="tpl-uzatuu" class="tpl-btn border border-stone-200 bg-white text-stone-700 py-2 px-2.5 rounded-xl text-xs font-semibold">🌸 Кыз узатуу</button>
-            <button type="button" onclick="setTemplate('jubilee')" id="tpl-jubilee" class="tpl-btn border border-stone-200 bg-white text-stone-700 py-2 px-2.5 rounded-xl text-xs font-semibold">👑 Юбилей</button>
-            <button type="button" onclick="setTemplate('tushoo')" id="tpl-tushoo" class="tpl-btn border border-stone-200 bg-white text-stone-700 py-2 px-2.5 rounded-xl text-xs font-semibold">✂️ Тушоо той</button>
+            <button type="button" onclick="setTemplate('wedding')" id="tpl-wedding" class="tpl-btn border-2 border-emerald-800 bg-emerald-50 text-emerald-950 py-2 px-2.5 rounded-xl text-xs font-semibold cursor-pointer">💍 Үйлөнүү той</button>
+            <button type="button" onclick="setTemplate('uzatuu')" id="tpl-uzatuu" class="tpl-btn border border-stone-200 bg-white text-stone-700 py-2 px-2.5 rounded-xl text-xs font-semibold cursor-pointer">🌸 Кыз узатуу</button>
+            <button type="button" onclick="setTemplate('jubilee')" id="tpl-jubilee" class="tpl-btn border border-stone-200 bg-white text-stone-700 py-2 px-2.5 rounded-xl text-xs font-semibold cursor-pointer">👑 Юбилей</button>
+            <button type="button" onclick="setTemplate('tushoo')" id="tpl-tushoo" class="tpl-btn border border-stone-200 bg-white text-stone-700 py-2 px-2.5 rounded-xl text-xs font-semibold cursor-pointer">✂️ Тушоо той</button>
           </div>
         </div>
 
@@ -256,19 +251,19 @@
         <div>
           <label class="block text-xs sm:text-sm font-bold text-stone-800 mb-2">4. Түстөр палитрасы</label>
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-            <button type="button" onclick="setTheme('theme-emerald-gold')" class="flex items-center gap-2 p-2 rounded-xl border border-stone-200 hover:border-emerald-700 text-xs font-semibold bg-white">
+            <button type="button" onclick="setTheme('theme-emerald-gold')" class="flex items-center gap-2 p-2 rounded-xl border border-stone-200 hover:border-emerald-700 text-xs font-semibold bg-white cursor-pointer">
               <span class="w-4 h-4 rounded-full bg-emerald-900 border border-amber-400 shrink-0"></span>
               <span>Изумруд & Алтын</span>
             </button>
-            <button type="button" onclick="setTheme('theme-royal-gold')" class="flex items-center gap-2 p-2 rounded-xl border border-stone-200 hover:border-slate-700 text-xs font-semibold bg-white">
+            <button type="button" onclick="setTheme('theme-royal-gold')" class="flex items-center gap-2 p-2 rounded-xl border border-stone-200 hover:border-slate-700 text-xs font-semibold bg-white cursor-pointer">
               <span class="w-4 h-4 rounded-full bg-slate-900 border border-amber-400 shrink-0"></span>
               <span>Көк & Алтын</span>
             </button>
-            <button type="button" onclick="setTheme('theme-rose-gold')" class="flex items-center gap-2 p-2 rounded-xl border border-stone-200 hover:border-pink-600 text-xs font-semibold bg-white">
+            <button type="button" onclick="setTheme('theme-rose-gold')" class="flex items-center gap-2 p-2 rounded-xl border border-stone-200 hover:border-pink-600 text-xs font-semibold bg-white cursor-pointer">
               <span class="w-4 h-4 rounded-full bg-pink-200 border border-pink-600 shrink-0"></span>
               <span>Назик Роза</span>
             </button>
-            <button type="button" onclick="setTheme('theme-cream-gold')" class="flex items-center gap-2 p-2 rounded-xl border border-stone-200 hover:border-amber-600 text-xs font-semibold bg-white">
+            <button type="button" onclick="setTheme('theme-cream-gold')" class="flex items-center gap-2 p-2 rounded-xl border border-stone-200 hover:border-amber-600 text-xs font-semibold bg-white cursor-pointer">
               <span class="w-4 h-4 rounded-full bg-amber-100 border border-amber-600 shrink-0"></span>
               <span>Крем & Алтын</span>
             </button>
@@ -283,7 +278,7 @@
               class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-emerald-600 outline-none text-sm" />
           </div>
           <div>
-            <label class="block text-xs sm:text-sm font-bold text-stone-800 mb-1.5">6. Той ээсинин WhatsApp номери (жооптор түшөт)</label>
+            <label class="block text-xs sm:text-sm font-bold text-stone-800 mb-1.5">6. Той ээсинин WhatsApp номери</label>
             <input type="text" id="input-host-wa" value="996774010212" placeholder="996774010212"
               class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-emerald-600 outline-none text-sm" />
           </div>
@@ -305,5 +300,26 @@
 
         <!-- Кошумча фото -->
         <div>
-          <label class="block text-xs sm:text-sm font-bold text-stone-800 mb-1.5">9. Кошумча фото (Кааласаңыз өзүңүздүн фотоңузду кошуңуз)</label>
-          <input type="file" id="input-extra-photo" accept="
+          <label class="block text-xs sm:text-sm font-bold text-stone-800 mb-1.5">9. Кошумча фото</label>
+          <input type="file" id="input-extra-photo" accept="image/*" onchange="handleExtraPhotoUpload(event)"
+            class="w-full text-xs text-stone-500 file:mr-2 file:py-2 file:px-3 file:rounded-lg file:border-0 file:font-semibold file:bg-amber-50 file:text-amber-900 border border-stone-300 rounded-xl p-1" />
+        </div>
+
+        <!-- Ресторан жана 2GIS -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs sm:text-sm font-bold text-stone-800 mb-1.5">10. Ресторан жана дареги</label>
+            <input type="text" id="input-venue" value="«Ала-Тоо» банкет залы, Чүй пр. 123" oninput="updatePreview()"
+              class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-emerald-600 outline-none text-sm" />
+          </div>
+          <div>
+            <label class="block text-xs sm:text-sm font-bold text-stone-800 mb-1.5">11. 2GIS / Google Карта шилтемеси</label>
+            <input type="url" id="input-map" value="https://2gis.kg/bishkek" oninput="updatePreview()"
+              class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-emerald-600 outline-none text-sm" />
+          </div>
+        </div>
+
+        <!-- Видео жана Музыка -->
+        <div class="bg-stone-50 p-4 rounded-xl border border-stone-200 space-y-3">
+          <label class="text-xs sm:text-sm font-bold text-stone-800 block">12. Видео чакыруу / YouTube шилтеме (990с VIP)</label>
+          <input type="text" id="input-video
