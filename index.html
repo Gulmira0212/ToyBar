@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ToyBar.kg — Онлайн Чакыруу Конструктору</title>
+  <title>ToyBar.kg — Конструктор онлайн-приглашений</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,314 +12,465 @@
     body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
     .font-serif-display { font-family: 'Cormorant Garamond', serif; }
 
-    /* Суу белгиси — баскычтарга тоскоол болбойт */
-    .watermark-layer {
+    .demo-watermark {
       position: absolute;
       inset: 0;
-      z-index: 25;
       pointer-events: none;
-      overflow: hidden;
+      z-index: 20;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-      padding: 18px;
+      gap: 18px;
+      padding: 16px;
       align-content: center;
-      background: rgba(0, 0, 0, 0.04);
     }
-    .watermark-item {
-      transform: rotate(-28deg);
-      font-size: 11px;
+    .demo-watermark span {
+      transform: rotate(-26deg);
+      font-size: 10px;
       font-weight: 800;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.45);
-      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+      color: rgba(255, 255, 255, 0.28);
+      text-shadow: 0 1px 3px rgba(0,0,0,0.45);
       text-align: center;
       user-select: none;
-      -webkit-user-select: none;
     }
 
-    /* Бай түстөр */
-    .theme-emerald-gold {
-      background: linear-gradient(165deg, #062c22 0%, #0b4636 55%, #041d17 100%);
-      border-color: #eab308;
-      color: #fef9e7;
-    }
-    .theme-emerald-gold .sub-box {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(234, 179, 8, 0.35);
-      color: #fef9e7;
-    }
-    .theme-emerald-gold .accent-text { color: #facc15; }
-
-    .theme-royal-gold {
-      background: linear-gradient(165deg, #0f172a 0%, #1e293b 55%, #090d16 100%);
-      border-color: #d4af37;
-      color: #f8fafc;
-    }
-    .theme-royal-gold .sub-box {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(212, 175, 55, 0.35);
-      color: #f8fafc;
-    }
-    .theme-royal-gold .accent-text { color: #eab308; }
-
-    .theme-rose-gold {
-      background: linear-gradient(165deg, #fff5f7 0%, #fce7f3 55%, #fdf2f8 100%);
-      border-color: #db2777;
-      color: #4a0e2e;
-    }
-    .theme-rose-gold .sub-box {
-      background: rgba(255, 255, 255, 0.78);
-      border-color: rgba(219, 39, 119, 0.25);
-      color: #4a0e2e;
-    }
-    .theme-rose-gold .accent-text { color: #be185d; }
-
-    .theme-cream-gold {
-      background: linear-gradient(165deg, #fffdf9 0%, #f5ebd6 100%);
-      border-color: #c59b27;
-      color: #2c2012;
-    }
-    .theme-cream-gold .sub-box {
-      background: rgba(255, 255, 255, 0.82);
-      border-color: rgba(197, 155, 39, 0.3);
-      color: #2c2012;
-    }
-    .theme-cream-gold .accent-text { color: #b45309; }
+    .style-emerald { background: linear-gradient(165deg, #062e23 0%, #0b4a38 60%, #041e17 100%); color: #f8fafc; }
+    .style-burgundy { background: linear-gradient(165deg, #3b0d1b 0%, #5c162b 60%, #240710 100%); color: #fdf2f8; }
+    .style-eucalyptus { background: linear-gradient(165deg, #dfece4 0%, #c8ddd0 100%); color: #163024; }
+    .style-rose { background: linear-gradient(165deg, #fde8ee 0%, #f7ceda 100%); color: #3b1222; }
+    .style-black { background: linear-gradient(165deg, #111113 0%, #232226 60%, #09090a 100%); color: #f9fafb; }
   </style>
 </head>
-<body class="bg-[#f8f6f2] text-stone-800 antialiased">
+<body class="bg-[#f3f4f2] text-stone-800 antialiased">
 
-  <!-- Навигация -->
-  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-stone-200">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-2">
-      <a href="#" class="flex items-center gap-2">
-        <span class="w-9 h-9 rounded-full bg-emerald-900 text-amber-300 flex items-center justify-center font-serif-display font-bold text-xl border border-amber-400/50">T</span>
-        <span class="font-serif-display text-2xl font-bold text-stone-900">ToyBar<span class="text-amber-600">.kg</span></span>
-      </a>
-      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-stone-600">
-        <a href="#pricing" class="hover:text-stone-900">Тарифтер</a>
-        <a href="#builder" class="hover:text-stone-900">Конструктор</a>
-        <a href="#faq" class="hover:text-stone-900">Суроолор</a>
-      </nav>
-      <a href="#builder" class="bg-emerald-900 hover:bg-emerald-800 text-amber-200 text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-full transition">
-        Чакыруу жасоо
-      </a>
+  <!-- Жогорку бөлүк -->
+  <header class="max-w-4xl mx-auto pt-10 pb-6 px-4 text-center">
+    <div class="inline-block px-3.5 py-1 rounded-full bg-stone-200/80 text-stone-600 text-[11px] font-bold tracking-wider uppercase mb-4">
+      ОНЛАЙН-ПРИГЛАШЕНИЯ • TOYBAR.KG
+    </div>
+    <h1 class="font-serif-display text-4xl sm:text-5xl font-bold text-stone-900 leading-tight">
+      Создайте <span class="text-emerald-800 italic">приглашение</span> за 2 минуты
+    </h1>
+    <p class="text-stone-500 text-xs sm:text-sm max-w-xl mx-auto mt-3 leading-relaxed">
+      Выберите праздник и стиль, добавьте фото и музыку с YouTube, проверьте демо-версию и оформите полную ссылку для гостей.
+    </p>
+
+    <div class="flex flex-wrap items-center justify-center gap-2 mt-5 text-xs text-stone-600">
+      <span class="px-3 py-1 rounded-full bg-white border border-stone-200">1 · Заполните</span>
+      <span class="px-3 py-1 rounded-full bg-white border border-stone-200">2 · Посмотрите демо</span>
+      <span class="px-3 py-1 rounded-full bg-white border border-stone-200">3 · Активируйте без ДЕМО</span>
+    </div>
+
+    <div class="mt-4">
+      <button type="button" onclick="resetDraft()" class="px-3.5 py-1.5 rounded-lg bg-white hover:bg-stone-100 border border-stone-200 text-xs font-medium text-stone-600 cursor-pointer">
+        Очистить черновик
+      </button>
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="bg-gradient-to-b from-emerald-950 via-emerald-900 to-stone-900 text-white py-14 md:py-20 px-4">
-    <div class="max-w-4xl mx-auto text-center">
-      <div class="inline-block px-4 py-1 rounded-full bg-amber-400/15 border border-amber-400/40 text-amber-300 text-xs font-semibold tracking-wider uppercase mb-4">
-        Кыргызча • Орусча • Өзбекче чакыруулар
-      </div>
-      <h1 class="font-serif-display text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mb-5">
-        Ар кандай тилде жана бюджетте <span class="text-amber-300 italic">кооз онлайн чакыруулар</span>
-      </h1>
-      <p class="text-stone-200 text-sm sm:text-base md:text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
-        Чакырууну кыргызча, орусча же өзбекче жасаңыз. 190 сомдук фото варианттан 990 сомдук видео VIP пакетке чейин тандаңыз.
-      </p>
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-        <a href="#builder" class="w-full sm:w-auto bg-amber-400 hover:bg-amber-300 text-stone-950 font-bold px-8 py-4 rounded-xl shadow-lg transition text-sm sm:text-base">
-          Конструкторго өтүү
-        </a>
-        <a href="#pricing" class="w-full sm:w-auto bg-white/10 hover:bg-white/15 text-white border border-white/20 font-semibold px-6 py-4 rounded-xl transition text-sm sm:text-base">
-          Тарифтерди көрүү
-        </a>
-      </div>
-    </div>
-  </section>
+  <!-- Конструктор -->
+  <main class="max-w-3xl mx-auto px-4 pb-16 space-y-5">
 
-  <!-- Тарифтер -->
-  <section id="pricing" class="max-w-6xl mx-auto px-4 py-12">
-    <div class="text-center mb-8">
-      <h2 class="font-serif-display text-3xl sm:text-4xl font-bold text-stone-900">Тарифтер</h2>
-      <p class="text-stone-500 text-xs sm:text-sm mt-1">Өзүңүзгө ылайык вариантты тандаңыз</p>
-    </div>
+    <!-- 1. Выберите торжество -->
+    <section class="bg-white rounded-3xl p-6 border border-stone-200/80 shadow-sm">
+      <div class="flex items-center gap-2.5 mb-4">
+        <span class="w-6 h-6 rounded-full bg-emerald-900 text-white text-xs font-bold flex items-center justify-center">1</span>
+        <h2 class="font-bold text-base text-stone-900">Выберите торжество</h2>
+      </div>
+      <div class="flex flex-wrap gap-2" id="event-buttons">
+        <button type="button" data-event="Свадьба" onclick="selectEvent('Свадьба')" class="ev-btn px-4 py-2 rounded-full bg-stone-900 text-white text-xs font-semibold cursor-pointer">Свадьба</button>
+        <button type="button" data-event="Кыз узатуу" onclick="selectEvent('Кыз узатуу')" class="ev-btn px-4 py-2 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-semibold cursor-pointer">Кыз узатуу</button>
+        <button type="button" data-event="Тушоо кесүү" onclick="selectEvent('Тушоо кесүү')" class="ev-btn px-4 py-2 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-semibold cursor-pointer">Тушоо кесүү</button>
+        <button type="button" data-event="Үй той" onclick="selectEvent('Үй той')" class="ev-btn px-4 py-2 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-semibold cursor-pointer">Үй той</button>
+        <button type="button" data-event="День рождения" onclick="selectEvent('День рождения')" class="ev-btn px-4 py-2 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-semibold cursor-pointer">День рождения</button>
+        <button type="button" data-event="Новый год" onclick="selectEvent('Новый год')" class="ev-btn px-4 py-2 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-semibold cursor-pointer">Новый год</button>
+        <button type="button" data-event="Юбилей" onclick="selectEvent('Юбилей')" class="ev-btn px-4 py-2 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-semibold cursor-pointer">Юбилей</button>
+      </div>
+    </section>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm flex flex-col justify-between">
-        <div>
-          <div class="text-xs font-bold uppercase tracking-wider text-stone-500">Фото вариант</div>
-          <div class="text-3xl font-bold text-stone-900 mt-1">190 сом</div>
-          <ul class="mt-4 space-y-2 text-xs sm:text-sm text-stone-600">
-            <li>✓ Өзүңүз каалаган фотону кошуу</li>
-            <li>✓ Кыргызча / Орусча / Өзбекче</li>
-            <li>✓ 2GIS картасы жана «Барам / Барбайм» (1 жолу)</li>
-            <li>✓ Тойдон кийин +3 күн активдүү</li>
-          </ul>
-        </div>
-        <button type="button" onclick="selectPlan('photo', 190, true)" class="mt-6 w-full py-2.5 rounded-xl border border-stone-900 text-stone-900 hover:bg-stone-900 hover:text-white font-semibold text-xs sm:text-sm transition cursor-pointer">
-          190 сомдукту тандоо
+    <!-- 2. Оформление (5 тем) -->
+    <section class="bg-white rounded-3xl p-6 border border-stone-200/80 shadow-sm">
+      <div class="flex items-center gap-2.5 mb-1">
+        <span class="w-6 h-6 rounded-full bg-emerald-900 text-white text-xs font-bold flex items-center justify-center">2</span>
+        <h2 class="font-bold text-base text-stone-900">Оформление (5 тем для выбранного торжества)</h2>
+      </div>
+      <p class="text-xs text-stone-400 mb-4">Нажмите на понравившийся стиль — ниже можно сразу посмотреть его на экране телефона</p>
+
+      <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+        <button type="button" onclick="selectStyle('emerald')" id="style-card-emerald" class="group text-center cursor-pointer">
+          <div class="h-24 rounded-2xl style-emerald border-2 border-emerald-800 flex flex-col items-center justify-center shadow-sm">
+            <span class="font-serif-display text-xl text-amber-300 font-bold">Aa</span>
+            <span class="w-5 h-0.5 bg-amber-300/70 mt-1"></span>
+          </div>
+          <div class="text-[11px] font-semibold text-stone-800 mt-1.5">Изумруд и золото</div>
+        </button>
+
+        <button type="button" onclick="selectStyle('burgundy')" id="style-card-burgundy" class="group text-center cursor-pointer">
+          <div class="h-24 rounded-2xl style-burgundy border border-transparent group-hover:border-stone-400 flex flex-col items-center justify-center shadow-sm">
+            <span class="font-serif-display text-xl text-rose-200 font-bold">Aa</span>
+            <span class="w-5 h-0.5 bg-rose-200/60 mt-1"></span>
+          </div>
+          <div class="text-[11px] font-medium text-stone-600 mt-1.5">Бургунди и арка</div>
+        </button>
+
+        <button type="button" onclick="selectStyle('eucalyptus')" id="style-card-eucalyptus" class="group text-center cursor-pointer">
+          <div class="h-24 rounded-2xl style-eucalyptus border border-transparent group-hover:border-stone-400 flex flex-col items-center justify-center shadow-sm">
+            <span class="font-serif-display text-xl text-emerald-900 font-bold">Aa</span>
+            <span class="w-5 h-0.5 bg-emerald-900/40 mt-1"></span>
+          </div>
+          <div class="text-[11px] font-medium text-stone-600 mt-1.5">Нежный эвкалипт</div>
+        </button>
+
+        <button type="button" onclick="selectStyle('rose')" id="style-card-rose" class="group text-center cursor-pointer">
+          <div class="h-24 rounded-2xl style-rose border border-transparent group-hover:border-stone-400 flex flex-col items-center justify-center shadow-sm">
+            <span class="font-serif-display text-xl text-rose-900 font-bold">Aa</span>
+            <span class="w-5 h-0.5 bg-rose-900/40 mt-1"></span>
+          </div>
+          <div class="text-[11px] font-medium text-stone-600 mt-1.5">Пудровая роза</div>
+        </button>
+
+        <button type="button" onclick="selectStyle('black')" id="style-card-black" class="group text-center cursor-pointer col-span-2 sm:col-span-1">
+          <div class="h-24 rounded-2xl style-black border border-transparent group-hover:border-stone-400 flex flex-col items-center justify-center shadow-sm">
+            <span class="font-serif-display text-xl text-amber-300 font-bold">Aa</span>
+            <span class="w-5 h-0.5 bg-amber-300/70 mt-1"></span>
+          </div>
+          <div class="text-[11px] font-medium text-stone-600 mt-1.5">Чёрный люкс</div>
         </button>
       </div>
+    </section>
 
-      <div class="bg-white p-6 rounded-2xl border-2 border-emerald-700 shadow-md flex flex-col justify-between">
-        <div>
-          <div class="inline-block px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-900 text-[11px] font-bold">Популярдуу</div>
-          <div class="text-xs font-bold uppercase tracking-wider text-emerald-800 mt-2">Стандарт</div>
-          <div class="text-3xl font-bold text-stone-900 mt-1">490 сом</div>
-          <ul class="mt-4 space-y-2 text-xs sm:text-sm text-stone-600">
-            <li>✓ 190 сомдук пакеттин баары</li>
-            <li>✓ Бай түс палитрасы (Изумруд/Алтын ж.б.)</li>
-            <li>✓ Кошумча фото жана кошумча бөлүм</li>
-            <li>✓ Музыка кошуу / өчүрүү</li>
-          </ul>
-        </div>
-        <button type="button" onclick="selectPlan('standard', 490, true)" class="mt-6 w-full py-2.5 rounded-xl bg-emerald-900 hover:bg-emerald-800 text-amber-200 font-semibold text-xs sm:text-sm transition cursor-pointer">
-          490 сомдукту тандоо
-        </button>
+    <!-- 3. Имена и хозяева торжества -->
+    <section class="bg-white rounded-3xl p-6 border border-stone-200/80 shadow-sm space-y-4">
+      <div class="flex items-center gap-2.5">
+        <span class="w-6 h-6 rounded-full bg-emerald-900 text-white text-xs font-bold flex items-center justify-center">3</span>
+        <h2 class="font-bold text-base text-stone-900">Имена и хозяева торжества</h2>
       </div>
 
-      <div class="bg-gradient-to-b from-emerald-950 to-stone-900 text-white p-6 rounded-2xl border border-amber-400/60 shadow-lg flex flex-col justify-between">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <div class="inline-block px-2.5 py-0.5 rounded-full bg-amber-400/20 text-amber-300 text-[11px] font-bold">Бардык функциялар</div>
-          <div class="text-xs font-bold uppercase tracking-wider text-amber-300 mt-2">VIP / Видео пакет</div>
-          <div class="text-3xl font-bold text-white mt-1">990 сом</div>
-          <ul class="mt-4 space-y-2 text-xs sm:text-sm text-stone-200">
-            <li>✓ Видео блок (YouTube чакыруу/клип)</li>
-            <li>✓ Кошумча фотолор жана өзүнчө бөлүмдөр</li>
-            <li>✓ Люкс дизайндар жана музыка</li>
-            <li>✓ Толук мүмкүнчүлүктөр топтому</li>
-          </ul>
+          <label class="block text-xs font-semibold text-stone-700 mb-1.5">Жених / Виновник торжества</label>
+          <input type="text" id="groom-name" placeholder="Например: Акжигит" oninput="syncPreview()"
+            class="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm outline-none focus:border-emerald-700" />
         </div>
-        <button type="button" onclick="selectPlan('vip', 990, true)" class="mt-6 w-full py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-stone-950 font-bold text-xs sm:text-sm transition cursor-pointer">
-          990 сомдукту тандоо
+        <div>
+          <label class="block text-xs font-semibold text-stone-700 mb-1.5">Невеста / Пара</label>
+          <input type="text" id="bride-name" placeholder="Например: Азиза" oninput="syncPreview()"
+            class="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm outline-none focus:border-emerald-700" />
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-stone-700 mb-1.5">Имя на кыргызском (чья свадьба / торжество?)</label>
+        <input type="text" id="ky-genitive" placeholder="Например: Азизанын" oninput="syncPreview()"
+          class="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm outline-none focus:border-emerald-700" />
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-stone-700 mb-1.5">Той ээлери (хозяева тоя)</label>
+        <input type="text" id="hosts-name" placeholder="Например: Жаркын & Шергазы" oninput="syncPreview()"
+          class="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm outline-none focus:border-emerald-700" />
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+        <button type="button" onclick="openPreviewModal()" class="py-3 px-4 rounded-xl border border-stone-300 bg-white hover:bg-stone-50 text-xs font-bold text-stone-800 cursor-pointer">
+          Предпросмотр
+        </button>
+        <button type="button" onclick="openPaymentModal()" class="py-3 px-4 rounded-xl bg-emerald-950 hover:bg-emerald-900 text-white text-xs font-bold cursor-pointer">
+          Создать демо-приглашение
         </button>
       </div>
+    </section>
+
+    <!-- 4. Дата, время и место -->
+    <section class="bg-white rounded-3xl p-6 border border-stone-200/80 shadow-sm space-y-4">
+      <div class="flex items-center gap-2.5">
+        <span class="w-6 h-6 rounded-full bg-emerald-900 text-white text-xs font-bold flex items-center justify-center">4</span>
+        <h2 class="font-bold text-base text-stone-900">Дата, время и место</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-semibold text-stone-700 mb-1.5">Дата</label>
+          <input type="date" id="event-date" onchange="syncPreview()"
+            class="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm outline-none focus:border-emerald-700" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-stone-700 mb-1.5">Время начала</label>
+          <input type="time" id="event-time" value="17:00" onchange="syncPreview()"
+            class="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm outline-none focus:border-emerald-700" />
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-stone-700 mb-1.5">Название ресторана или места</label>
+        <input type="text" id="venue-name" placeholder="Например: Ресторан «Аристократ»" oninput="syncPreview()"
+          class="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm outline-none focus:border-emerald-700" />
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-stone-700 mb-1.5">Адрес</label>
+        <input type="text" id="venue-address" placeholder="Например: ул. Манаса, 14" oninput="syncPreview()"
+          class="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm outline-none focus:border-emerald-700" />
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-stone-700 mb-1.5">Ссылка на карту 2GIS или Google Maps (необязательно)</label>
+        <input type="url" id="map-link" placeholder="Если оставить пустым, карта откроется по адресу" oninput="syncPreview()"
+          class="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm outline-none focus:border-emerald-700" />
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-stone-700 mb-1.5">Город / часовой пояс</label>
+        <select id="timezone-select" class="w-full px-4 py-2.5 rounded-xl border border-stone-200 bg-white text-sm outline-none">
+          <option value="UTC+6" selected>Кыргызстан — Бишкек, Ош (UTC+6)</option>
+          <option value="UTC+5">Казахстан / Узбекистан (UTC+5)</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- 5. Ответы гостей и музыка с YouTube -->
+    <section class="bg-white rounded-3xl p-6 border border-stone-200/80 shadow-sm space-y-4">
+      <div class="flex items-center gap-2.5">
+        <span class="w-6 h-6 rounded-full bg-emerald-900 text-white text-xs font-bold flex items-center justify-center">5</span>
+        <h2 class="font-bold text-base text-stone-900">Ответы гостей и музыка с YouTube</h2>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-stone-700 mb-1.5">Ваш WhatsApp для ответов гостей (с кодом страны)</label>
+        <input type="text" id="host-whatsapp" value="+996 774 010 212" placeholder="+996 555 123 456"
+          class="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm outline-none focus:border-emerald-700" />
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-stone-700 mb-1.5">Ссылка на музыку с YouTube (необязательно)</label>
+        <input type="text" id="yt-music-url" placeholder="https://youtu.be/... или https://www.youtube.com/watch?v=..." oninput="syncPreview()"
+          class="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm outline-none focus:border-emerald-700" />
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-semibold text-stone-700 mb-1.5">Начать музыку с секунды</label>
+          <input type="number" id="yt-start-sec" value="0" min="0"
+            class="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm outline-none" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-stone-700 mb-1.5">Основной язык приглашения</label>
+          <select id="main-lang" onchange="setCardLang(this.value)" class="w-full px-4 py-2.5 rounded-xl border border-stone-200 bg-white text-sm outline-none">
+            <option value="KG" selected>Кыргызча (KG)</option>
+            <option value="RU">Русский (RU)</option>
+          </select>
+        </div>
+      </div>
+      <p class="text-[11px] text-stone-400">Гости смогут переключать язык KG / RU прямо в приглашении.</p>
+    </section>
+
+    <!-- 6. Фотографии для коллажа -->
+    <section class="bg-white rounded-3xl p-6 border border-stone-200/80 shadow-sm space-y-3">
+      <div class="flex items-center gap-2.5">
+        <span class="w-6 h-6 rounded-full bg-emerald-900 text-white text-xs font-bold flex items-center justify-center">6</span>
+        <h2 class="font-bold text-base text-stone-900">Фотографии для коллажа (до 3 качественных фото)</h2>
+      </div>
+
+      <input type="file" id="collage-photos" accept="image/*" multiple onchange="handleCollageUpload(event)"
+        class="block w-full text-xs text-stone-500 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:font-semibold file:bg-stone-100 file:text-stone-800 hover:file:bg-stone-200 cursor-pointer" />
+      <p class="text-[11px] text-stone-400">Можно выбрать от 1 до 3 фотографий. Они автоматически отображаются в приглашении.</p>
+
+      <div id="collage-thumbs" class="grid grid-cols-3 gap-2 pt-1"></div>
+    </section>
+
+    <!-- Дополнительно: программа дня, дресс-код, подарок -->
+    <section class="bg-white rounded-3xl p-6 border border-stone-200/80 shadow-sm space-y-4">
+      <h3 class="font-bold text-sm text-stone-900">Дополнительно: программа дня, дресс-код, подарок</h3>
+
+      <div id="program-list" class="space-y-2.5">
+        <div class="grid grid-cols-12 gap-2 items-center prog-row">
+          <input type="time" value="18:00" onchange="syncPreview()" class="col-span-4 sm:col-span-3 px-3 py-2 rounded-xl border border-stone-200 text-xs prog-time" />
+          <input type="text" value="Салтанаттын башталышы / Начало торжества" oninput="syncPreview()" class="col-span-7 sm:col-span-8 px-3 py-2 rounded-xl border border-stone-200 text-xs prog-title" />
+          <button type="button" onclick="removeProgRow(this)" class="col-span-1 text-stone-400 hover:text-rose-600 text-xs font-bold cursor-pointer">✕</button>
+        </div>
+        <div class="grid grid-cols-12 gap-2 items-center prog-row">
+          <input type="time" value="21:00" onchange="syncPreview()" class="col-span-4 sm:col-span-3 px-3 py-2 rounded-xl border border-stone-200 text-xs prog-time" />
+          <input type="text" value="Биринчи бий / Первый танец" oninput="syncPreview()" class="col-span-7 sm:col-span-8 px-3 py-2 rounded-xl border border-stone-200 text-xs prog-title" />
+          <button type="button" onclick="removeProgRow(this)" class="col-span-1 text-stone-400 hover:text-rose-600 text-xs font-bold cursor-pointer">✕</button>
+        </div>
+      </div>
+
+      <button type="button" onclick="addProgRow()" class="w-full py-2.5 rounded-xl border border-dashed border-amber-500 text-amber-800 hover:bg-amber-50 text-xs font-bold cursor-pointer">
+        + Добавить пункт программы
+      </button>
+
+      <div>
+        <label class="block text-xs font-semibold text-stone-700 mb-1.5">Дресс-код (необязательно)</label>
+        <input type="text" id="dress-code" placeholder="Например: Улуттук же классикалык стиль" oninput="syncPreview()"
+          class="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm outline-none" />
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-stone-700 mb-1.5">Подарок / банк для перевода (необязательно)</label>
+        <input type="text" id="gift-bank" value="MBank / Компаньон" oninput="syncPreview()"
+          class="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm outline-none" />
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-stone-700 mb-1.5">Номер телефона или карты для подарка (необязательно)</label>
+        <input type="text" id="gift-phone" value="+996 774 010 212" oninput="syncPreview()"
+          class="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm outline-none" />
+      </div>
+
+      <label class="flex items-center gap-2.5 text-xs font-medium text-stone-700 cursor-pointer pt-1">
+        <input type="checkbox" id="show-calendar" checked onchange="syncPreview()" class="rounded border-stone-300 text-emerald-800" />
+        <span>Показывать кнопку «Добавить в календарь»</span>
+      </label>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+        <button type="button" onclick="openPreviewModal()" class="py-3.5 px-4 rounded-xl border border-stone-300 bg-white hover:bg-stone-50 text-xs font-bold text-stone-800 cursor-pointer">
+          Предпросмотр
+        </button>
+        <button type="button" onclick="openPaymentModal()" class="py-3.5 px-4 rounded-xl bg-emerald-950 hover:bg-emerald-900 text-white text-xs font-bold cursor-pointer">
+          Создать демо-приглашение
+        </button>
+      </div>
+    </section>
+
+    <!-- Барактын аягындагы Жандуу Телефон Алдын Ала Көрүү -->
+    <section id="live-phone-preview" class="bg-stone-800/95 rounded-3xl p-6 sm:p-8 text-center text-white shadow-xl">
+      <div class="text-[11px] uppercase tracking-widest text-stone-300 mb-4">ТАК ПРИГЛАШЕНИЕ УВИДЯТ ГОСТИ</div>
+
+      <div class="mx-auto w-full max-w-[330px] bg-stone-950 rounded-[2.6rem] p-3 border-4 border-stone-700 shadow-2xl">
+        <div class="relative rounded-[2rem] overflow-hidden style-emerald min-h-[540px]" id="phone-screen">
+          
+          <!-- Демо суу белгиси -->
+          <div class="demo-watermark" aria-hidden="true">
+            <span>ДЕМО-ВЕРСИЯ</span>
+            <span>TOYBAR.KG</span>
+            <span>ДЕМО-ВЕРСИЯ</span>
+            <span>TOYBAR.KG</span>
+            <span>ДЕМО-ВЕРСИЯ</span>
+            <span>TOYBAR.KG</span>
+          </div>
+
+          <div class="relative z-10 p-5 space-y-4 text-center">
+            <!-- KG / RU баскычтары -->
+            <div class="flex items-center justify-between">
+              <div class="inline-flex rounded-full bg-black/30 p-0.5 border border-white/15">
+                <button type="button" onclick="setCardLang('KG')" id="card-lang-kg" class="px-2.5 py-1 rounded-full bg-amber-300 text-stone-950 text-[10px] font-bold cursor-pointer">KG</button>
+                <button type="button" onclick="setCardLang('RU')" id="card-lang-ru" class="px-2.5 py-1 rounded-full text-white/80 text-[10px] font-bold cursor-pointer">RU</button>
+              </div>
+              <span class="text-[10px] px-2 py-0.5 rounded-full bg-black/30 text-amber-200 font-semibold" id="card-event-badge">Свадьба</span>
+            </div>
+
+            <div class="pt-2 space-y-1">
+              <div class="text-[10px] uppercase tracking-[0.2em] opacity-80" id="card-top-sub">ҮЙЛӨНҮҮ ТОЮНА ЧАКЫРУУ</div>
+              <h3 class="font-serif-display text-3xl font-bold leading-tight" id="card-couple">Акжигит & Азиза</h3>
+              <p class="text-xs opacity-90 pt-1 leading-relaxed" id="card-greeting">
+                Сиздин келишиңиз биз үчүн чоң сыймык жана кубаныч!
+              </p>
+            </div>
+
+            <!-- Коллаж сүрөттөр -->
+            <div id="card-collage" class="grid grid-cols-1 gap-2 pt-1">
+              <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80" alt="Фото" class="w-full h-40 object-cover rounded-2xl border border-white/20" />
+            </div>
+
+            <!-- Дата, убакыт жана ресторан -->
+            <div class="rounded-2xl bg-black/25 border border-white/15 p-3 space-y-1 text-xs">
+              <div class="font-bold text-amber-300" id="card-datetime-text">11.12.2026 • 17:00</div>
+              <div class="font-semibold" id="card-venue-text">Ресторан «Аристократ»</div>
+              <div class="text-[11px] opacity-80" id="card-address-text">ул. Манаса, 14</div>
+            </div>
+
+            <!-- Программа -->
+            <div class="rounded-2xl bg-black/25 border border-white/15 p-3 text-left space-y-1.5">
+              <div class="text-[10px] font-bold uppercase tracking-wider text-amber-300 text-center" id="card-prog-title">Программа дня</div>
+              <div id="card-prog-items" class="space-y-1 text-[11px]"></div>
+            </div>
+
+            <!-- Карта & Календарь -->
+            <div class="space-y-2">
+              <a id="card-map-link" href="https://2gis.kg" target="_blank" class="block w-full py-2 rounded-xl bg-amber-300 text-stone-950 text-xs font-bold">
+                🗺️ 2GIS / Карта
+              </a>
+              <button type="button" id="card-cal-btn" onclick="alert('Календарга сактоо функциясы кошулду!')" class="w-full py-2 rounded-xl bg-white/15 hover:bg-white/25 text-white text-xs font-semibold cursor-pointer">
+                📅 Добавить в календарь
+              </button>
+            </div>
+
+            <!-- RSVP конок үчүн -->
+            <div class="rounded-2xl bg-black/30 border border-white/15 p-3 text-left space-y-2">
+              <div class="text-xs font-bold text-amber-300 text-center" id="card-rsvp-title">Жооп берүү / Ответ гостя</div>
+              <input type="text" id="guest-rsvp-name" placeholder="Аты-жөнүңүз / Имя" class="w-full px-2.5 py-1.5 rounded-lg bg-white text-stone-900 text-xs outline-none" />
+              <select id="guest-rsvp-status" class="w-full px-2.5 py-1.5 rounded-lg bg-white text-stone-900 text-xs outline-none">
+                <option value="✅ Барам / Приду">✅ Барам / Приду</option>
+                <option value="❌ Барбайм / Не смогу">❌ Барбайм / Не смогу</option>
+              </select>
+              <select id="guest-rsvp-count" class="w-full px-2.5 py-1.5 rounded-lg bg-white text-stone-900 text-xs outline-none">
+                <option value="Жалгыз (1 адам)">Жалгыз (1 адам)</option>
+                <option value="Жубайым/түгөйүм менен (2 адам)">Жубайым/түгөйүм менен (2 адам)</option>
+                <option value="Мен жана 2 адам (баласы/апасы/жакындары — 3 адам)">Мен жана 2 адам (баласы/апасы/жакындары — 3 адам)</option>
+              </select>
+              <button type="button" onclick="sendGuestRsvp()" class="w-full py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-stone-950 text-xs font-bold cursor-pointer">
+                WhatsApp'ка жөнөтүү
+              </button>
+            </div>
+
+            <!-- Демо белги -->
+            <div class="pt-1">
+              <span class="inline-block px-3 py-1 rounded-lg bg-black/40 border border-white/20 text-[10px] font-bold tracking-wider uppercase text-amber-200">
+                ДЕМО-ВЕРСИЯ • ОПЛАТИТЕ ДЛЯ СНЯТИЯ
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-center gap-3 mt-5">
+        <button type="button" onclick="syncPreview()" class="px-5 py-2 rounded-xl bg-stone-700 hover:bg-stone-600 text-xs font-semibold text-white cursor-pointer">
+          Обновить
+        </button>
+        <button type="button" onclick="openPaymentModal()" class="px-5 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-xs font-bold text-stone-950 cursor-pointer">
+          Оплатить / Без ДЕМО
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Төлөм / Активация Модалдык Терезеси -->
+  <div id="payment-modal" class="fixed inset-0 z-50 hidden bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative text-center">
+      <button type="button" onclick="closePaymentModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold cursor-pointer">✕</button>
+
+      <span class="inline-block px-3 py-1 rounded-full bg-emerald-100 text-emerald-900 text-xs font-bold mb-2">Активация без ДЕМО</span>
+      <h3 class="font-serif-display text-3xl font-bold text-stone-900">ToyBar.kg</h3>
+      <p class="text-xs text-stone-500 mt-1">ELQR кодун сканерлеп же номерге которуп, чекти WhatsApp'ка жөнөтүңүз.</p>
+
+      <div class="my-4 bg-stone-50 border border-stone-200 rounded-2xl p-4 space-y-2">
+        <div class="w-40 h-40 mx-auto bg-white p-2 rounded-xl border border-stone-200 flex items-center justify-center">
+          <img src="qr.jpg" alt="ELQR Гулмира Ч. И." class="w-full h-full object-contain" />
+        </div>
+        <div class="text-xs font-bold text-stone-900">Алуучу: Гулмира Ч. И.</div>
+        <div class="text-xs font-bold text-emerald-900">MBank / Компаньон: +996 774 010 212</div>
+      </div>
+
+      <button type="button" onclick="sendActivationWhatsApp()" class="w-full py-3.5 px-5 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs font-bold cursor-pointer">
+        💬 Чекти WhatsApp'ка жөнөтүү
+      </button>
     </div>
-  </section>
+  </div>
 
-  <!-- Конструктор жана Жандуу Үлгү -->
-  <section id="builder" class="max-w-6xl mx-auto px-4 pb-16">
-    <div class="text-center mb-8">
-      <h2 class="font-serif-display text-3xl sm:text-4xl font-bold text-stone-900">Чакыруу конструктору</h2>
-      <p class="text-stone-500 text-xs sm:text-sm mt-1">Тилди, вариантты жана маалыматтарды тандаңыз</p>
-    </div>
+  <script>
+    let currentEvent = 'Свадьба';
+    let currentStyle = 'emerald';
+    let currentCardLang = 'KG';
+    let uploadedPhotos = [];
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-      
-      <!-- Сол жак: Форма -->
-      <div class="lg:col-span-7 bg-white p-5 sm:p-7 rounded-2xl border border-stone-200 shadow-sm space-y-5">
+    const defaultDate = new Date(Date.now() + 20 * 86400000);
+    document.getElementById('event-date').value = defaultDate.toISOString().slice(0, 10);
 
-        <!-- Чакыруунун тили -->
-        <div>
-          <label class="block text-xs sm:text-sm font-bold text-stone-800 mb-2">1. Чакыруунун тили</label>
-          <div class="grid grid-cols-3 gap-2">
-            <button type="button" onclick="setInviteLang('ky')" id="lang-btn-ky" class="lang-btn border-2 border-emerald-800 bg-emerald-50 text-emerald-950 py-2.5 px-2 rounded-xl text-xs font-bold cursor-pointer">
-              🇰🇬 Кыргызча
-            </button>
-            <button type="button" onclick="setInviteLang('ru')" id="lang-btn-ru" class="lang-btn border border-stone-200 bg-white text-stone-800 py-2.5 px-2 rounded-xl text-xs font-bold cursor-pointer">
-              🇷🇺 Русский
-            </button>
-            <button type="button" onclick="setInviteLang('uz')" id="lang-btn-uz" class="lang-btn border border-stone-200 bg-white text-stone-800 py-2.5 px-2 rounded-xl text-xs font-bold cursor-pointer">
-              🇺🇿 O'zbekcha
-            </button>
-          </div>
-        </div>
-
-        <!-- Тариф тандоо -->
-        <div>
-          <label class="block text-xs sm:text-sm font-bold text-stone-800 mb-2">2. Вариантты / Бааны тандаңыз</label>
-          <div class="grid grid-cols-3 gap-2">
-            <button type="button" onclick="selectPlan('photo', 190, false)" id="plan-btn-photo" class="plan-btn border border-stone-200 bg-white text-stone-800 py-2.5 px-2 rounded-xl text-xs font-bold cursor-pointer">
-              📷 Фото — 190с
-            </button>
-            <button type="button" onclick="selectPlan('standard', 490, false)" id="plan-btn-standard" class="plan-btn border-2 border-emerald-800 bg-emerald-50 text-emerald-950 py-2.5 px-2 rounded-xl text-xs font-bold cursor-pointer">
-              ✨ Стандарт — 490с
-            </button>
-            <button type="button" onclick="selectPlan('vip', 990, false)" id="plan-btn-vip" class="plan-btn border border-stone-200 bg-white text-stone-800 py-2.5 px-2 rounded-xl text-xs font-bold cursor-pointer">
-              🎬 Видео VIP — 990с
-            </button>
-          </div>
-        </div>
-
-        <!-- Шаблон -->
-        <div>
-          <label class="block text-xs sm:text-sm font-bold text-stone-800 mb-2">3. Шаблондун түрү</label>
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-            <button type="button" onclick="setTemplate('wedding')" id="tpl-wedding" class="tpl-btn border-2 border-emerald-800 bg-emerald-50 text-emerald-950 py-2 px-2.5 rounded-xl text-xs font-semibold cursor-pointer">💍 Үйлөнүү той</button>
-            <button type="button" onclick="setTemplate('uzatuu')" id="tpl-uzatuu" class="tpl-btn border border-stone-200 bg-white text-stone-700 py-2 px-2.5 rounded-xl text-xs font-semibold cursor-pointer">🌸 Кыз узатуу</button>
-            <button type="button" onclick="setTemplate('jubilee')" id="tpl-jubilee" class="tpl-btn border border-stone-200 bg-white text-stone-700 py-2 px-2.5 rounded-xl text-xs font-semibold cursor-pointer">👑 Юбилей</button>
-            <button type="button" onclick="setTemplate('tushoo')" id="tpl-tushoo" class="tpl-btn border border-stone-200 bg-white text-stone-700 py-2 px-2.5 rounded-xl text-xs font-semibold cursor-pointer">✂️ Тушоо той</button>
-          </div>
-        </div>
-
-        <!-- Бай түстөр -->
-        <div>
-          <label class="block text-xs sm:text-sm font-bold text-stone-800 mb-2">4. Түстөр палитрасы</label>
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-            <button type="button" onclick="setTheme('theme-emerald-gold')" class="flex items-center gap-2 p-2 rounded-xl border border-stone-200 hover:border-emerald-700 text-xs font-semibold bg-white cursor-pointer">
-              <span class="w-4 h-4 rounded-full bg-emerald-900 border border-amber-400 shrink-0"></span>
-              <span>Изумруд & Алтын</span>
-            </button>
-            <button type="button" onclick="setTheme('theme-royal-gold')" class="flex items-center gap-2 p-2 rounded-xl border border-stone-200 hover:border-slate-700 text-xs font-semibold bg-white cursor-pointer">
-              <span class="w-4 h-4 rounded-full bg-slate-900 border border-amber-400 shrink-0"></span>
-              <span>Көк & Алтын</span>
-            </button>
-            <button type="button" onclick="setTheme('theme-rose-gold')" class="flex items-center gap-2 p-2 rounded-xl border border-stone-200 hover:border-pink-600 text-xs font-semibold bg-white cursor-pointer">
-              <span class="w-4 h-4 rounded-full bg-pink-200 border border-pink-600 shrink-0"></span>
-              <span>Назик Роза</span>
-            </button>
-            <button type="button" onclick="setTheme('theme-cream-gold')" class="flex items-center gap-2 p-2 rounded-xl border border-stone-200 hover:border-amber-600 text-xs font-semibold bg-white cursor-pointer">
-              <span class="w-4 h-4 rounded-full bg-amber-100 border border-amber-600 shrink-0"></span>
-              <span>Крем & Алтын</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Той ээлери жана Той ээсинин WhatsApp номери -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-xs sm:text-sm font-bold text-stone-800 mb-1.5">5. Той ээлери</label>
-            <input type="text" id="input-names" value="Азамат & Гулмира" oninput="updatePreview()"
-              class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-emerald-600 outline-none text-sm" />
-          </div>
-          <div>
-            <label class="block text-xs sm:text-sm font-bold text-stone-800 mb-1.5">6. Той ээсинин WhatsApp номери</label>
-            <input type="text" id="input-host-wa" value="996774010212" placeholder="996774010212"
-              class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-emerald-600 outline-none text-sm" />
-          </div>
-        </div>
-
-        <!-- Күнү/убактысы жана Негизги фото -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-xs sm:text-sm font-bold text-stone-800 mb-1.5">7. Тойдун күнү жана убактысы</label>
-            <input type="datetime-local" id="input-datetime" onchange="updatePreview()"
-              class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-emerald-600 outline-none text-sm" />
-          </div>
-          <div>
-            <label class="block text-xs sm:text-sm font-bold text-stone-800 mb-1.5">8. Негизги фото жүктөө</label>
-            <input type="file" id="input-photo" accept="image/*" onchange="handleImageUpload(event, 'preview-img', true)"
-              class="w-full text-xs text-stone-500 file:mr-2 file:py-2 file:px-3 file:rounded-lg file:border-0 file:font-semibold file:bg-emerald-50 file:text-emerald-900 border border-stone-300 rounded-xl p-1" />
-          </div>
-        </div>
-
-        <!-- Кошумча фото -->
-        <div>
-          <label class="block text-xs sm:text-sm font-bold text-stone-800 mb-1.5">9. Кошумча фото</label>
-          <input type="file" id="input-extra-photo" accept="image/*" onchange="handleExtraPhotoUpload(event)"
-            class="w-full text-xs text-stone-500 file:mr-2 file:py-2 file:px-3 file:rounded-lg file:border-0 file:font-semibold file:bg-amber-50 file:text-amber-900 border border-stone-300 rounded-xl p-1" />
-        </div>
-
-        <!-- Ресторан жана 2GIS -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-xs sm:text-sm font-bold text-stone-800 mb-1.5">10. Ресторан жана дареги</label>
-            <input type="text" id="input-venue" value="«Ала-Тоо» банкет залы, Чүй пр. 123" oninput="updatePreview()"
-              class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-emerald-600 outline-none text-sm" />
-          </div>
-          <div>
-            <label class="block text-xs sm:text-sm font-bold text-stone-800 mb-1.5">11. 2GIS / Google Карта шилтемеси</label>
-            <input type="url" id="input-map" value="https://2gis.kg/bishkek" oninput="updatePreview()"
-              class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-emerald-600 outline-none text-sm" />
-          </div>
-        </div>
-
-        <!-- Видео жана Музыка -->
-        <div class="bg-stone-50 p-4 rounded-xl border border-stone-200 space-y-3">
-          <label class="text-xs sm:text-sm font-bold text-stone-800 block">12. Видео чакыруу / YouTube шилтеме (990с VIP)</label>
-          <input type="text" id="input-video
+    function selectEvent(ev) {
+      currentEvent = ev;
+      document.querySelectorAll('.ev-btn').forEach(btn => {
+        const active = btn.dataset.event === ev;
+        btn.className = active
+          ? 'ev-btn px-4 py-2 rounded-full bg-stone-900 text-white text-xs font-semibold cursor-pointer'
+          : 'ev-btn px-4 py-2 rounded-full bg-stone-100 hover:
