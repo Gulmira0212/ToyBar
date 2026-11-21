@@ -3,435 +3,307 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chakyr.kg — Онлайн Чакыруу Конструктору</title>
+  <title>ToyBar.kg — Онлайн Чакыруу Конструктору</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
     .font-serif-display { font-family: 'Cormorant Garamond', serif; }
-    .ornament-bg {
-      background-image: radial-gradient(#d4af37 0.75px, transparent 0.75px), radial-gradient(#d4af37 0.75px, #fdfbf7 0.75px);
-      background-size: 30px 30px;
-      background-position: 0 0, 15px 15px;
+
+    /* Суу белгиси (Watermark) */
+    .watermark-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 25;
+      pointer-events: none;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      padding: 20px;
+      align-content: center;
+      background: rgba(0, 0, 0, 0.06);
     }
-    /* Шаблондордун стилдери */
-    .theme-wedding {
-      background: linear-gradient(180deg, #fffdf9 0%, #f7efe2 100%);
+    .watermark-item {
+      transform: rotate(-28deg);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.42);
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.65);
+      text-align: center;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .protected-card {
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+    }
+
+    /* Бай түстөр */
+    .theme-emerald-gold {
+      background: linear-gradient(165deg, #062c22 0%, #0b4636 55%, #041d17 100%);
+      border-color: #eab308;
+      color: #fef9e7;
+    }
+    .theme-emerald-gold .sub-box {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(234, 179, 8, 0.35);
+      color: #fef9e7;
+    }
+    .theme-emerald-gold .accent-text { color: #facc15; }
+
+    .theme-royal-gold {
+      background: linear-gradient(165deg, #0f172a 0%, #1e293b 55%, #090d16 100%);
       border-color: #d4af37;
-      color: #3d2c1e;
+      color: #f8fafc;
     }
-    .theme-uzatuu {
-      background: linear-gradient(180deg, #fff8fa 0%, #fce7ef 100%);
-      border-color: #d9779b;
-      color: #4a1d2f;
+    .theme-royal-gold .sub-box {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(212, 175, 55, 0.35);
+      color: #f8fafc;
     }
-    .theme-jubilee {
-      background: linear-gradient(180deg, #f4f7fb 0%, #e2ebf5 100%);
-      border-color: #2b547e;
-      color: #162b40;
+    .theme-royal-gold .accent-text { color: #eab308; }
+
+    .theme-rose-gold {
+      background: linear-gradient(165deg, #fff5f7 0%, #fce7f3 55%, #fdf2f8 100%);
+      border-color: #db2777;
+      color: #4a0e2e;
     }
+    .theme-rose-gold .sub-box {
+      background: rgba(255, 255, 255, 0.78);
+      border-color: rgba(219, 39, 119, 0.25);
+      color: #4a0e2e;
+    }
+    .theme-rose-gold .accent-text { color: #be185d; }
+
+    .theme-cream-gold {
+      background: linear-gradient(165deg, #fffdf9 0%, #f5ebd6 100%);
+      border-color: #c59b27;
+      color: #2c2012;
+    }
+    .theme-cream-gold .sub-box {
+      background: rgba(255, 255, 255, 0.82);
+      border-color: rgba(197, 155, 39, 0.3);
+      color: #2c2012;
+    }
+    .theme-cream-gold .accent-text { color: #b45309; }
   </style>
 </head>
-<body class="bg-[#faf8f5] text-stone-800 antialiased">
+<body class="bg-[#f8f6f2] text-stone-800 antialiased">
 
   <!-- Навигация -->
-  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-amber-200/60">
-    <div class="max-w-6xl mx-auto px-4 py-3.5 flex items-center justify-between">
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-stone-200">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-2">
       <a href="#" class="flex items-center gap-2">
-        <span class="w-8 h-8 rounded-full bg-amber-600 text-white flex items-center justify-center font-serif-display font-bold text-xl">Ч</span>
-        <span class="font-serif-display text-2xl font-bold tracking-wide text-stone-900">Chakyr<span class="text-amber-600">.kg</span></span>
+        <span class="w-9 h-9 rounded-full bg-emerald-900 text-amber-300 flex items-center justify-center font-serif-display font-bold text-xl border border-amber-400/50">T</span>
+        <span class="font-serif-display text-2xl font-bold text-stone-900">ToyBar<span class="text-amber-600">.kg</span></span>
       </a>
-      <a href="#builder" class="bg-amber-600 hover:bg-amber-700 text-white text-sm font-semibold px-4 py-2 rounded-full transition shadow-sm">
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-stone-600">
+        <a href="#pricing" class="hover:text-stone-900">Тарифтер</a>
+        <a href="#builder" class="hover:text-stone-900">Конструктор</a>
+        <a href="#faq" class="hover:text-stone-900">Суроолор</a>
+      </nav>
+      <a href="#builder" class="bg-emerald-900 hover:bg-emerald-800 text-amber-200 text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-full transition">
         Чакыруу жасоо
       </a>
     </div>
   </header>
 
-  <!-- 1. Hero Бөлүмү -->
-  <section class="ornament-bg border-b border-amber-200/60 py-14 md:py-20 px-4">
-    <div class="max-w-3xl mx-auto text-center">
-      <div class="inline-block px-3.5 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-semibold tracking-wider uppercase mb-4">
-        Заманбап онлайн чакыруулар
+  <!-- Hero -->
+  <section class="bg-gradient-to-b from-emerald-950 via-emerald-900 to-stone-900 text-white py-14 md:py-20 px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <div class="inline-block px-4 py-1 rounded-full bg-amber-400/15 border border-amber-400/40 text-amber-300 text-xs font-semibold tracking-wider uppercase mb-4">
+        Кыргызча • Орусча • Өзбекче чакыруулар
       </div>
-      <h1 class="font-serif-display text-4xl sm:text-5xl md:text-6xl font-bold text-stone-900 leading-tight mb-5">
-        Тоюңузга кооз онлайн чакырууну <span class="text-amber-600 italic">2 мүнөттө</span> жасаңыз
+      <h1 class="font-serif-display text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mb-5">
+        Ар кандай тилде жана бюджетте <span class="text-amber-300 italic">кооз онлайн чакыруулар</span>
       </h1>
-      <p class="text-stone-600 text-base sm:text-lg max-w-xl mx-auto mb-8">
-        Кагаз чакырууларга ашыкча чыгым болбоңуз. Конокторго WhatsApp аркылуу жөнөтүп, 2GIS картасын жана ким келерин оңой билиңиз.
+      <p class="text-stone-200 text-sm sm:text-base md:text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
+        Чакырууну кыргызча, орусча же өзбекче жасаңыз. 190 сомдук фото варианттан 990 сомдук видео VIP пакетке чейин тандаңыз.
       </p>
       <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-        <a href="#builder" class="w-full sm:w-auto bg-amber-600 hover:bg-amber-700 text-white font-semibold px-8 py-4 rounded-xl shadow-lg shadow-amber-600/20 transition text-base">
-          Чакыруу жасоо
+        <a href="#builder" class="w-full sm:w-auto bg-amber-400 hover:bg-amber-300 text-stone-950 font-bold px-8 py-4 rounded-xl shadow-lg transition text-sm sm:text-base">
+          Конструкторго өтүү
         </a>
-        <a href="#preview-card" class="w-full sm:w-auto bg-white hover:bg-stone-50 text-stone-800 border border-stone-200 font-semibold px-6 py-4 rounded-xl transition text-base">
-          Үлгүсүн көрүү
+        <a href="#pricing" class="w-full sm:w-auto bg-white/10 hover:bg-white/15 text-white border border-white/20 font-semibold px-6 py-4 rounded-xl transition text-sm sm:text-base">
+          Тарифтерди көрүү
         </a>
       </div>
     </div>
   </section>
 
-  <!-- 2 & 3 & 4. Конструктор жана Жандуу Үлгү -->
-  <section id="builder" class="max-w-6xl mx-auto px-4 py-12">
-    <div class="text-center mb-10">
-      <h2 class="font-serif-display text-3xl sm:text-4xl font-bold text-stone-900">Чакырууңузду түзүңүз</h2>
-      <p class="text-stone-500 text-sm sm:text-base mt-1">Төмөнкү маалыматтарды толтурсаңыз, оң жактагы чакыруу дароо өзгөрөт</p>
+  <!-- Тарифтер -->
+  <section id="pricing" class="max-w-6xl mx-auto px-4 py-12">
+    <div class="text-center mb-8">
+      <h2 class="font-serif-display text-3xl sm:text-4xl font-bold text-stone-900">Тарифтер</h2>
+      <p class="text-stone-500 text-xs sm:text-sm mt-1">Өзүңүзгө ылайык вариантты тандаңыз</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm flex flex-col justify-between">
+        <div>
+          <div class="text-xs font-bold uppercase tracking-wider text-stone-500">Фото вариант</div>
+          <div class="text-3xl font-bold text-stone-900 mt-1">190 сом</div>
+          <ul class="mt-4 space-y-2 text-xs sm:text-sm text-stone-600">
+            <li>✓ Өзүңүз каалаган фотону кошуу</li>
+            <li>✓ Кыргызча / Орусча / Өзбекче</li>
+            <li>✓ 2GIS картасы жана «Барам / Барбайм» (1 жолу)</li>
+            <li>✓ Тойдон кийин +3 күн активдүү</li>
+          </ul>
+        </div>
+        <button type="button" onclick="selectPlan('photo', 190)" class="mt-6 w-full py-2.5 rounded-xl border border-stone-900 text-stone-900 hover:bg-stone-900 hover:text-white font-semibold text-xs sm:text-sm transition">
+          190 сомдукту тандоо
+        </button>
+      </div>
+
+      <div class="bg-white p-6 rounded-2xl border-2 border-emerald-700 shadow-md flex flex-col justify-between">
+        <div>
+          <div class="inline-block px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-900 text-[11px] font-bold">Популярдуу</div>
+          <div class="text-xs font-bold uppercase tracking-wider text-emerald-800 mt-2">Стандарт</div>
+          <div class="text-3xl font-bold text-stone-900 mt-1">490 сом</div>
+          <ul class="mt-4 space-y-2 text-xs sm:text-sm text-stone-600">
+            <li>✓ 190 сомдук пакеттин баары</li>
+            <li>✓ Бай түс палитрасы (Изумруд/Алтын ж.б.)</li>
+            <li>✓ Кошумча фото жана кошумча бөлүм</li>
+            <li>✓ Музыка кошуу / өчүрүү</li>
+          </ul>
+        </div>
+        <button type="button" onclick="selectPlan('standard', 490)" class="mt-6 w-full py-2.5 rounded-xl bg-emerald-900 hover:bg-emerald-800 text-amber-200 font-semibold text-xs sm:text-sm transition">
+          490 сомдукту тандоо
+        </button>
+      </div>
+
+      <div class="bg-gradient-to-b from-emerald-950 to-stone-900 text-white p-6 rounded-2xl border border-amber-400/60 shadow-lg flex flex-col justify-between">
+        <div>
+          <div class="inline-block px-2.5 py-0.5 rounded-full bg-amber-400/20 text-amber-300 text-[11px] font-bold">Бардык функциялар</div>
+          <div class="text-xs font-bold uppercase tracking-wider text-amber-300 mt-2">VIP / Видео пакет</div>
+          <div class="text-3xl font-bold text-white mt-1">990 сом</div>
+          <ul class="mt-4 space-y-2 text-xs sm:text-sm text-stone-200">
+            <li>✓ Видео блок (YouTube чакыруу/клип)</li>
+            <li>✓ Кошумча фотолор жана өзүнчө бөлүмдөр</li>
+            <li>✓ Люкс дизайндар жана музыка</li>
+            <li>✓ Толук мүмкүнчүлүктөр топтому</li>
+          </ul>
+        </div>
+        <button type="button" onclick="selectPlan('vip', 990)" class="mt-6 w-full py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-stone-950 font-bold text-xs sm:text-sm transition">
+          990 сомдукту тандоо
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Конструктор жана Жандуу Үлгү -->
+  <section id="builder" class="max-w-6xl mx-auto px-4 pb-16">
+    <div class="text-center mb-8">
+      <h2 class="font-serif-display text-3xl sm:text-4xl font-bold text-stone-900">Чакыруу конструктору</h2>
+      <p class="text-stone-500 text-xs sm:text-sm mt-1">Тилди, вариантты жана маалыматтарды тандаңыз</p>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
       
-      <!-- Сол жак: Форма (Builder) -->
-      <div class="lg:col-span-7 bg-white p-5 sm:p-7 rounded-2xl shadow-sm border border-stone-200/80 space-y-5">
-        
-        <!-- Шаблон тандоо -->
+      <!-- Сол жак: Форма -->
+      <div class="lg:col-span-7 bg-white p-5 sm:p-7 rounded-2xl border border-stone-200 shadow-sm space-y-5">
+
+        <!-- Чакыруунун тили -->
         <div>
-          <label class="block text-sm font-semibold text-stone-700 mb-2">1. Шаблондун түрүн тандаңыз</label>
-          <div class="grid grid-cols-3 gap-2.5">
-            <button type="button" onclick="setTemplate('wedding')" id="btn-wedding" class="tpl-btn border-2 border-amber-600 bg-amber-50 text-amber-900 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-semibold transition">
-              💍 Үйлөнүү той
+          <label class="block text-xs sm:text-sm font-bold text-stone-800 mb-2">1. Чакыруунун тили (Язык приглашения / Taklifnoma tili)</label>
+          <div class="grid grid-cols-3 gap-2">
+            <button type="button" onclick="setInviteLang('ky')" id="lang-btn-ky" class="lang-btn border-2 border-emerald-800 bg-emerald-50 text-emerald-950 py-2.5 px-2 rounded-xl text-xs font-bold">
+              🇰🇬 Кыргызча
             </button>
-            <button type="button" onclick="setTemplate('uzatuu')" id="btn-uzatuu" class="tpl-btn border border-stone-200 bg-white text-stone-700 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-semibold transition">
-              🌸 Кыз узатуу
+            <button type="button" onclick="setInviteLang('ru')" id="lang-btn-ru" class="lang-btn border border-stone-200 bg-white text-stone-800 py-2.5 px-2 rounded-xl text-xs font-bold">
+              🇷🇺 Русский
             </button>
-            <button type="button" onclick="setTemplate('jubilee')" id="btn-jubilee" class="tpl-btn border border-stone-200 bg-white text-stone-700 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-semibold transition">
-              👑 Юбилей / Маараке
+            <button type="button" onclick="setInviteLang('uz')" id="lang-btn-uz" class="lang-btn border border-stone-200 bg-white text-stone-800 py-2.5 px-2 rounded-xl text-xs font-bold">
+              🇺🇿 O'zbekcha
             </button>
           </div>
         </div>
 
-        <!-- Той ээлери -->
+        <!-- Тариф тандоо -->
         <div>
-          <label class="block text-sm font-semibold text-stone-700 mb-1.5">2. Той ээлери (Жубайлардын же маараке ээсинин аты)</label>
-          <input type="text" id="input-names" value="Азамат & Айгерим" oninput="updatePreview()" placeholder="Мисалы: Азамат & Айгерим"
-            class="w-full px-4 py-3 rounded-xl border border-stone-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none text-sm" />
+          <label class="block text-xs sm:text-sm font-bold text-stone-800 mb-2">2. Вариантты / Бааны тандаңыз</label>
+          <div class="grid grid-cols-3 gap-2">
+            <button type="button" onclick="selectPlan('photo', 190, false)" id="plan-btn-photo" class="plan-btn border border-stone-200 bg-white text-stone-800 py-2.5 px-2 rounded-xl text-xs font-bold">
+              📷 Фото — 190с
+            </button>
+            <button type="button" onclick="selectPlan('standard', 490, false)" id="plan-btn-standard" class="plan-btn border-2 border-emerald-800 bg-emerald-50 text-emerald-950 py-2.5 px-2 rounded-xl text-xs font-bold">
+              ✨ Стандарт — 490с
+            </button>
+            <button type="button" onclick="selectPlan('vip', 990, false)" id="plan-btn-vip" class="plan-btn border border-stone-200 bg-white text-stone-800 py-2.5 px-2 rounded-xl text-xs font-bold">
+              🎬 Видео VIP — 990с
+            </button>
+          </div>
         </div>
 
-        <!-- Күнү жана убактысы -->
+        <!-- Шаблон -->
+        <div>
+          <label class="block text-xs sm:text-sm font-bold text-stone-800 mb-2">3. Шаблондун түрү</label>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <button type="button" onclick="setTemplate('wedding')" id="tpl-wedding" class="tpl-btn border-2 border-emerald-800 bg-emerald-50 text-emerald-950 py-2 px-2.5 rounded-xl text-xs font-semibold">💍 Үйлөнүү той</button>
+            <button type="button" onclick="setTemplate('uzatuu')" id="tpl-uzatuu" class="tpl-btn border border-stone-200 bg-white text-stone-700 py-2 px-2.5 rounded-xl text-xs font-semibold">🌸 Кыз узатуу</button>
+            <button type="button" onclick="setTemplate('jubilee')" id="tpl-jubilee" class="tpl-btn border border-stone-200 bg-white text-stone-700 py-2 px-2.5 rounded-xl text-xs font-semibold">👑 Юбилей</button>
+            <button type="button" onclick="setTemplate('tushoo')" id="tpl-tushoo" class="tpl-btn border border-stone-200 bg-white text-stone-700 py-2 px-2.5 rounded-xl text-xs font-semibold">✂️ Тушоо той</button>
+          </div>
+        </div>
+
+        <!-- Бай түстөр -->
+        <div>
+          <label class="block text-xs sm:text-sm font-bold text-stone-800 mb-2">4. Түстөр палитрасы</label>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <button type="button" onclick="setTheme('theme-emerald-gold')" class="flex items-center gap-2 p-2 rounded-xl border border-stone-200 hover:border-emerald-700 text-xs font-semibold bg-white">
+              <span class="w-4 h-4 rounded-full bg-emerald-900 border border-amber-400 shrink-0"></span>
+              <span>Изумруд & Алтын</span>
+            </button>
+            <button type="button" onclick="setTheme('theme-royal-gold')" class="flex items-center gap-2 p-2 rounded-xl border border-stone-200 hover:border-slate-700 text-xs font-semibold bg-white">
+              <span class="w-4 h-4 rounded-full bg-slate-900 border border-amber-400 shrink-0"></span>
+              <span>Көк & Алтын</span>
+            </button>
+            <button type="button" onclick="setTheme('theme-rose-gold')" class="flex items-center gap-2 p-2 rounded-xl border border-stone-200 hover:border-pink-600 text-xs font-semibold bg-white">
+              <span class="w-4 h-4 rounded-full bg-pink-200 border border-pink-600 shrink-0"></span>
+              <span>Назик Роза</span>
+            </button>
+            <button type="button" onclick="setTheme('theme-cream-gold')" class="flex items-center gap-2 p-2 rounded-xl border border-stone-200 hover:border-amber-600 text-xs font-semibold bg-white">
+              <span class="w-4 h-4 rounded-full bg-amber-100 border border-amber-600 shrink-0"></span>
+              <span>Крем & Алтын</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Той ээлери жана Той ээсинин WhatsApp номери -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label class="block text-sm font-semibold text-stone-700 mb-1.5">3. Күнү жана убактысы</label>
+            <label class="block text-xs sm:text-sm font-bold text-stone-800 mb-1.5">5. Той ээлери</label>
+            <input type="text" id="input-names" value="Азамат & Айгерим" oninput="updatePreview()"
+              class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-emerald-600 outline-none text-sm" />
+          </div>
+          <div>
+            <label class="block text-xs sm:text-sm font-bold text-stone-800 mb-1.5">6. Той ээсинин WhatsApp номери (жооптор түшөт)</label>
+            <input type="text" id="input-host-wa" value="996774010212" placeholder="996774010212"
+              class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-emerald-600 outline-none text-sm" />
+          </div>
+        </div>
+
+        <!-- Күнү/убактысы жана Негизги фото -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs sm:text-sm font-bold text-stone-800 mb-1.5">7. Тойдун күнү жана убактысы</label>
             <input type="datetime-local" id="input-datetime" onchange="updatePreview()"
-              class="w-full px-4 py-3 rounded-xl border border-stone-300 focus:ring-2 focus:ring-amber-500 outline-none text-sm" />
+              class="w-full px-4 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-emerald-600 outline-none text-sm" />
           </div>
           <div>
-            <label class="block text-sm font-semibold text-stone-700 mb-1.5">4. Сүрөт жүктөө</label>
-            <input type="file" id="input-photo" accept="image/*" onchange="handleImageUpload(event)"
-              class="w-full text-xs text-stone-500 file:mr-3 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-amber-50 file:text-amber-700 hover:file:bg-amber-100 border border-stone-300 rounded-xl p-1" />
+            <label class="block text-xs sm:text-sm font-bold text-stone-800 mb-1.5">8. Негизги фото жүктөө</label>
+            <input type="file" id="input-photo" accept="image/*" onchange="handleImageUpload(event, 'preview-img', true)"
+              class="w-full text-xs text-stone-500 file:mr-2 file:py-2 file:px-3 file:rounded-lg file:border-0 file:font-semibold file:bg-emerald-50 file:text-emerald-900 border border-stone-300 rounded-xl p-1" />
           </div>
         </div>
 
-        <!-- Өтүүчү жай жана 2GIS -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-sm font-semibold text-stone-700 mb-1.5">5. Өтүүчү жай (Ресторан жана дареги)</label>
-            <input type="text" id="input-venue" value="«Ала-Тоо» рестораны, Чүй пр. 123" oninput="updatePreview()" placeholder="Ресторандын аты жана дареги"
-              class="w-full px-4 py-3 rounded-xl border border-stone-300 focus:ring-2 focus:ring-amber-500 outline-none text-sm" />
-          </div>
-          <div>
-            <label class="block text-sm font-semibold text-stone-700 mb-1.5">6. 2GIS / Google Карта шилтемеси</label>
-            <input type="url" id="input-map" value="https://2gis.kg/bishkek" oninput="updatePreview()" placeholder="https://2gis.kg/..."
-              class="w-full px-4 py-3 rounded-xl border border-stone-300 focus:ring-2 focus:ring-amber-500 outline-none text-sm" />
-          </div>
-        </div>
-
-        <!-- Чакыруу тексти -->
+        <!-- Кошумча фото -->
         <div>
-          <label class="block text-sm font-semibold text-stone-700 mb-1.5">7. Чакыруу тексти</label>
-          <textarea id="input-message" rows="3" oninput="updatePreview()"
-            class="w-full px-4 py-3 rounded-xl border border-stone-300 focus:ring-2 focus:ring-amber-500 outline-none text-sm">Урматтуу коноктор! Сиздерди биздин өмүрүбүздөгү эң бактылуу күндөрдүн бири — үйлөнүү тоюбузга арналган ак дасторконубузга чакырабыз!</textarea>
-        </div>
-
-        <!-- Төлөмгө өтүү баскычы -->
-        <div class="pt-2">
-          <button type="button" onclick="openPaymentModal()"
-            class="w-full bg-stone-900 hover:bg-stone-800 text-white font-semibold py-4 px-6 rounded-xl shadow-md transition flex items-center justify-center gap-2 text-base">
-            <span>Даяр шилтемени алуу (Төлөм: 390 сом)</span>
-            <span>→</span>
-          </button>
-          <p class="text-center text-xs text-stone-400 mt-2">Төлөмдөн кийин конокторго жөнөтүү үчүн уникалдуу шилтеме ачылат</p>
-        </div>
-      </div>
-
-      <!-- Оң жак: Жандуу Чакыруу Картасы (Live Preview) -->
-      <div id="preview-card" class="lg:col-span-5 flex flex-col items-center">
-        <div class="text-xs font-semibold uppercase tracking-wider text-stone-400 mb-2">Телефондо көрүнүшү (Live Preview)</div>
-        
-        <!-- Мобилдик рамка -->
-        <div id="card-container" class="w-full max-w-[390px] theme-wedding border-2 rounded-[2rem] shadow-xl overflow-hidden transition-all duration-300">
-          
-          <!-- Сүрөт бөлүгү -->
-          <div class="relative h-64 w-full bg-stone-200 overflow-hidden">
-            <img id="preview-img" src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80" alt="Той сүрөтү" class="w-full h-full object-cover" />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex flex-col justify-end p-6 text-white text-center">
-              <span id="preview-badge" class="text-xs uppercase tracking-[0.2em] text-amber-200 mb-1">Үйлөнүү тойго чакыруу</span>
-              <h3 id="preview-names" class="font-serif-display text-3xl font-bold leading-tight">Азамат & Айгерим</h3>
-            </div>
-          </div>
-
-          <!-- Мазмун бөлүгү -->
-          <div class="p-6 text-center space-y-5">
-            
-            <!-- Чакыруу тексти -->
-            <p id="preview-message" class="text-sm leading-relaxed opacity-90">
-              Урматтуу коноктор! Сиздерди биздин өмүрүбүздөгү эң бактылуу күндөрдүн бири — үйлөнүү тоюбузга арналган ак дасторконубузга чакырабыз!
-            </p>
-
-            <div class="border-y border-current/15 py-4 space-y-2">
-              <div class="text-xs uppercase tracking-widest opacity-60">Тойдун күнү жана убактысы</div>
-              <div id="preview-date" class="font-serif-display text-2xl font-bold">15-Август, 2026 • 17:00</div>
-              <div id="preview-venue" class="text-xs font-medium opacity-85 pt-1">📍 «Ала-Тоо» рестораны, Чүй пр. 123</div>
-            </div>
-
-            <!-- Таймер -->
-            <div>
-              <div class="text-[11px] uppercase tracking-wider opacity-60 mb-2">Тойго чейин калды:</div>
-              <div class="grid grid-cols-4 gap-2 text-center">
-                <div class="bg-white/70 rounded-xl p-2 shadow-sm">
-                  <div id="cd-days" class="font-bold text-lg">00</div>
-                  <div class="text-[10px] opacity-70">Күн</div>
-                </div>
-                <div class="bg-white/70 rounded-xl p-2 shadow-sm">
-                  <div id="cd-hours" class="font-bold text-lg">00</div>
-                  <div class="text-[10px] opacity-70">Саат</div>
-                </div>
-                <div class="bg-white/70 rounded-xl p-2 shadow-sm">
-                  <div id="cd-mins" class="font-bold text-lg">00</div>
-                  <div class="text-[10px] opacity-70">Мүнөт</div>
-                </div>
-                <div class="bg-white/70 rounded-xl p-2 shadow-sm">
-                  <div id="cd-secs" class="font-bold text-lg">00</div>
-                  <div class="text-[10px] opacity-70">Секунд</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- 2GIS Карта баскычы -->
-            <a id="preview-map-btn" href="https://2gis.kg/bishkek" target="_blank"
-              class="block w-full py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow-sm transition">
-              🗺️ 2GIS Картадан көрүү
-            </a>
-
-            <!-- RSVP Формасы (Коноктор үчүн) -->
-            <div class="bg-white/80 rounded-2xl p-4 text-left space-y-3 border border-current/10">
-              <div class="text-center font-serif-display text-xl font-bold">Келериңизди тастыктаңыз</div>
-              <input type="text" id="rsvp-name" placeholder="Сиздин аты-жөнүңүз"
-                class="w-full px-3 py-2 rounded-lg border border-stone-300 bg-white text-stone-800 text-xs outline-none" />
-              <div class="grid grid-cols-2 gap-2">
-                <label class="cursor-pointer">
-                  <input type="radio" name="rsvp-choice" value="Барам" checked class="peer hidden" />
-                  <div class="text-center py-2 rounded-lg border border-stone-300 text-xs font-semibold peer-checked:bg-amber-600 peer-checked:text-white peer-checked:border-amber-600 transition">
-                    ✅ Барам
-                  </div>
-                </label>
-                <label class="cursor-pointer">
-                  <input type="radio" name="rsvp-choice" value="Барбайм" class="peer hidden" />
-                  <div class="text-center py-2 rounded-lg border border-stone-300 text-xs font-semibold peer-checked:bg-stone-700 peer-checked:text-white peer-checked:border-stone-700 transition">
-                    ❌ Барбайм
-                  </div>
-                </label>
-              </div>
-              <textarea id="rsvp-wish" rows="2" placeholder="Каалоо-тилегиңизди жазыңыз..."
-                class="w-full px-3 py-2 rounded-lg border border-stone-300 bg-white text-stone-800 text-xs outline-none"></textarea>
-              <button type="button" onclick="submitRsvp()"
-                class="w-full py-2.5 rounded-lg bg-stone-900 text-white text-xs font-semibold hover:bg-stone-800 transition">
-                Жоопту жөнөтүү
-              </button>
-              <div id="rsvp-feedback" class="hidden text-center text-xs font-semibold text-emerald-700 pt-1">
-                Рахмат! Сиздин жообуңуз жана тилегиңиз кабыл алынды.
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- 5. Төлөм Модалдык Терезеси (Payment Modal) -->
-  <div id="payment-modal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-2xl relative animate-fadeIn">
-      <button onclick="closePaymentModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 flex items-center justify-center text-stone-600 font-bold">✕</button>
-      
-      <div class="text-center">
-        <span class="inline-block px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-semibold mb-2">Чакыруу дээрлик даяр!</span>
-        <h3 class="font-serif-display text-2xl sm:text-3xl font-bold text-stone-900">Төлөм жүргүзүү</h3>
-        <p class="text-stone-500 text-xs sm:text-sm mt-1">Уникалдуу шилтемени активдештирүү үчүн төлөм жасап, чекти WhatsApp аркылуу жөнөтүңүз.</p>
-      </div>
-
-      <!-- QR / Реквизиттер кутусу -->
-      <div class="my-5 bg-stone-50 border border-stone-200 rounded-2xl p-4 text-center space-y-3">
-        <div class="text-xs text-stone-500">Төлөм суммасы:</div>
-        <div class="text-3xl font-bold text-stone-900">390 сом</div>
-        
-        <!-- Шарттуу QR-код (өзүңүздүн QR сүрөтүн койсоңуз болот) -->
-        <div class="w-36 h-36 mx-auto bg-white p-2 rounded-xl border border-stone-200 flex items-center justify-center">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=MBank:996700000000" alt="QR Code" class="w-full h-full object-contain" />
-        </div>
-
-        <div class="text-xs text-stone-700 space-y-1 pt-1">
-          <div><strong>MBank / О!Деньги:</strong> +996 700 000 000</div>
-          <div class="text-stone-500">Алуучу: Аман Б.</div>
-        </div>
-      </div>
-
-      <!-- WhatsApp чек жөнөтүү баскычы -->
-      <button type="button" onclick="sendWhatsAppReceipt()"
-        class="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-semibold py-3.5 px-5 rounded-xl shadow-md transition flex items-center justify-center gap-2 text-sm">
-        <span>💬 Чекти WhatsApp'ка жөнөтүү</span>
-      </button>
-    </div>
-  </div>
-
-  <!-- Футер -->
-  <footer class="border-t border-stone-200 py-8 text-center text-xs text-stone-500">
-    © 2026 Chakyr.kg — Бардык укуктар корголгон.
-  </footer>
-
-  <script>
-    // Баштапкы датаны 30 күн алдыга коюу
-    const defaultDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
-    defaultDate.setHours(17, 0, 0, 0);
-    const tzOffset = defaultDate.getTimezoneOffset() * 60000;
-    document.getElementById('input-datetime').value = new Date(defaultDate - tzOffset).toISOString().slice(0, 16);
-
-    let currentTemplate = 'wedding';
-
-    const templateConfig = {
-      wedding: {
-        badge: 'Үйлөнүү тойго чакыруу',
-        themeClass: 'theme-wedding',
-        defaultImg: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80'
-      },
-      uzatuu: {
-        badge: 'Кыз узатуу тоюна чакыруу',
-        themeClass: 'theme-uzatuu',
-        defaultImg: 'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=800&q=80'
-      },
-      jubilee: {
-        badge: 'Маараке / Юбилейге чакыруу',
-        themeClass: 'theme-jubilee',
-        defaultImg: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=800&q=80'
-      }
-    };
-
-    let customImageUploaded = false;
-
-    function setTemplate(type) {
-      currentTemplate = type;
-      const card = document.getElementById('card-container');
-      card.classList.remove('theme-wedding', 'theme-uzatuu', 'theme-jubilee');
-      card.classList.add(templateConfig[type].themeClass);
-      document.getElementById('preview-badge').innerText = templateConfig[type].badge;
-
-      if (!customImageUploaded) {
-        document.getElementById('preview-img').src = templateConfig[type].defaultImg;
-      }
-
-      // Баскычтардын стилин жаңылоо
-      document.querySelectorAll('.tpl-btn').forEach(btn => {
-        btn.className = 'tpl-btn border border-stone-200 bg-white text-stone-700 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-semibold transition';
-      });
-      document.getElementById('btn-' + type).className = 'tpl-btn border-2 border-amber-600 bg-amber-50 text-amber-900 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-semibold transition';
-    }
-
-    function handleImageUpload(event) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          document.getElementById('preview-img').src = e.target.result;
-          customImageUploaded = true;
-        };
-        reader.readAsDataURL(file);
-      }
-    }
-
-    function updatePreview() {
-      const names = document.getElementById('input-names').value || 'Той ээлери';
-      const venue = document.getElementById('input-venue').value || 'Ресторандын дареги';
-      const mapUrl = document.getElementById('input-map').value || '#';
-      const message = document.getElementById('input-message').value || '';
-      const dtVal = document.getElementById('input-datetime').value;
-
-      document.getElementById('preview-names').innerText = names;
-      document.getElementById('preview-venue').innerText = '📍 ' + venue;
-      document.getElementById('preview-map-btn').href = mapUrl;
-      document.getElementById('preview-message').innerText = message;
-
-      if (dtVal) {
-        const d = new Date(dtVal);
-        const months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
-        const hours = String(d.getHours()).padStart(2, '0');
-        const mins = String(d.getMinutes()).padStart(2, '0');
-        document.getElementById('preview-date').innerText = `${d.getDate()}-${months[d.getMonth()]}, ${d.getFullYear()} • ${hours}:${mins}`;
-      }
-    }
-
-    // Таймерди эсептөө
-    function updateCountdown() {
-      const dtVal = document.getElementById('input-datetime').value;
-      if (!dtVal) return;
-      const target = new Date(dtVal).getTime();
-      const now = new Date().getTime();
-      const diff = target - now;
-
-      if (diff <= 0) {
-        ['cd-days', 'cd-hours', 'cd-mins', 'cd-secs'].forEach(id => document.getElementById(id).innerText = '00');
-        return;
-      }
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const mins = Math.floor((diff / 1000 / 60) % 60);
-      const secs = Math.floor((diff / 1000) % 60);
-
-      document.getElementById('cd-days').innerText = String(days).padStart(2, '0');
-      document.getElementById('cd-hours').innerText = String(hours).padStart(2, '0');
-      document.getElementById('cd-mins').innerText = String(mins).padStart(2, '0');
-      document.getElementById('cd-secs').innerText = String(secs).padStart(2, '0');
-    }
-    setInterval(updateCountdown, 1000);
-    updatePreview();
-    updateCountdown();
-
-    // Коноктун RSVP жообу
-    function submitRsvp() {
-      const guestName = document.getElementById('rsvp-name').value.trim();
-      if (!guestName) {
-        alert('Сураныч, аты-жөнүңүздү жазыңыз!');
-        return;
-      }
-      document.getElementById('rsvp-feedback').classList.remove('hidden');
-      document.getElementById('rsvp-name').value = '';
-      document.getElementById('rsvp-wish').value = '';
-    }
-
-    // Төлөм терезеси
-    function openPaymentModal() {
-      document.getElementById('payment-modal').classList.remove('hidden');
-    }
-    function closePaymentModal() {
-      document.getElementById('payment-modal').classList.add('hidden');
-    }
-
-    // WhatsApp аркылуу чек жөнөтүү
-    function sendWhatsAppReceipt() {
-      const adminPhone = '996700000000'; // Өзүңүздүн WhatsApp номериңизди жазыңыз
-      const names = document.getElementById('input-names').value;
-      const dateText = document.getElementById('preview-date').innerText;
-      const venue = document.getElementById('input-venue').value;
-      
-      const text = `Саламатсызбы! Chakyr.kg сайтынан онлайн чакыруу жасадым.\n\n` +
-                   `📌 Той ээлери: ${names}\n` +
-                   `📅 Күнү: ${dateText}\n` +
-                   `📍 Жайы: ${venue}\n\n` +
-                   `Төлөм чегин тиркеп жөнөтүп жатам, шилтемемди ачып бериңизчи.`;
-      
-      const url = `https://wa.me/${adminPhone}?text=${encodeURIComponent(text)}`;
-      window.open(url, '_blank');
-    }
-  </script>
-</body>
-</html>
+          <label class="block text-xs sm:text-sm font-bold text-stone-800 mb-1.5">9. Кошумча фото (Кааласаңыз өзүңүздүн фотоңузду кошуңуз)</label>
+          <input type="file" id="input-extra-photo" accept="
